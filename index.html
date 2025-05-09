@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="icon.png" type="image/x-icon">
+    <title>Corrida Infinita</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="game">
+            <div id="road"></div>
+            <div id="player"></div>
+            <div class="weather-container"></div>
+            <div class="combo-counter" id="comboCounter">x1</div>
+            <div id="coinsContainer"></div>
+            <div class="ingame-inventory" id="ingameInventory"></div>
+        </div>
+
+        <div class="sound-control">
+            <button id="toggleSound" class="icon-button">🔊</button>
+            <button id="toggleMusic" class="icon-button">🎵</button>
+        </div>
+
+        <div class="score">Pontos: <span id="scoreText">0</span> ⭐</div>
+        <div class="lives">Vidas: <span id="livesText">3</span> ❤️</div>
+        <div class="high-score">Recorde: <span id="highScoreText">0</span> 🏆</div>
+        <div class="level">Nível: <span id="levelText">1</span> ⚡</div>
+        <div class="coins">Moedas: <span id="coinsText">0</span> 💰</div>
+
+        <div class="game-start" id="gameStart">
+            <h1>Corrida Infinita</h1>
+            <div class="menu-tabs">
+                <div class="menu-tab active" data-tab="cars">Carros</div>
+                <div class="menu-tab" data-tab="shop">Loja</div>
+                <div class="menu-tab" data-tab="inventory">Inventário</div>
+            </div>
+            <!-- Conteúdo das Abas -->
+            <div class="menu-content">
+                <!-- Aba de Carros -->
+                <div class="tab-content active" id="cars-content">
+                    <div class="car-selection">
+                        <h3>Escolha seu Carro</h3>
+                        <div class="car-options">
+                            <div class="car-option" data-car="sport">
+                                <div class="car-preview sport"></div>
+                                <p>Esportivo</p>
+                                <p class="ability-desc">Habilidade: Dash Duplo</p>
+                            </div>
+                            <div class="car-option" data-car="classic">
+                                <div class="car-preview classic"></div>
+                                <p>Clássico</p>
+                                <p class="ability-desc">Habilidade: Super Escudo</p>
+                            </div>
+                            <div class="car-option" data-car="future">
+                                <div class="car-preview future"></div>
+                                <p>Futurista</p>
+                                <p class="ability-desc">Habilidade: Campo de Força</p>
+                            </div>
+                        </div>
+                        <div class="color-picker">
+                            <h3>Cor do Carro</h3>
+                            <input type="color" id="carColor" value="#3498db">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="shop-content">
+                <div class="shop">
+                    <h3>Loja de Itens</h3>
+                    <div class="shop-items">
+                        <div class="shop-item" data-item="nitro">
+                            <div class="item-icon">🚀</div>
+                            <p>Nitro Boost</p>
+                            <p class="item-desc">Velocidade extra por 10s</p>
+                            <button class="buy-button" data-price="500">500 💰</button>
+                        </div>
+                        <div class="shop-item" data-item="shield">
+                            <div class="item-icon">🛡️</div>
+                            <p>Super Shield</p>
+                            <p class="item-desc">Invencibilidade por 20s</p>
+                            <button class="buy-button" data-price="750">750 💰</button>
+                        </div>
+                        <div class="shop-item" data-item="magnet">
+                            <div class="item-icon">🧲</div>
+                            <p>Coin Magnet</p>
+                            <p class="item-desc">Atrai moedas por 30s</p>
+                            <button class="buy-button" data-price="1000">1000 💰</button>
+                        </div>
+                        <!-- New premium cars -->
+                        <div class="shop-item" data-item="supercar">
+                            <div class="car-preview">
+                                <img src="images/supercar.png" alt="Super Car" class="car-image">
+                            </div>
+                            <p>Super Car</p>
+                            <p class="item-desc">Velocidade máxima aumentada</p>
+                            <button class="buy-button" data-price="5000">5000 💰</button>
+                        </div>
+                        <div class="shop-item" data-item="monster">
+                            <div class="car-preview">
+                                <img src="images/monster.png" alt="Monster Truck" class="car-image">
+                            </div>
+                            <p>Monster Truck</p>
+                            <p class="item-desc">Imune a 1 colisão</p>
+                            <button class="buy-button" data-price="7500">7500 💰</button>
+                        </div>
+                        <div class="shop-item" data-item="hover">
+                            <div class="car-preview">
+                                <img src="images/hover.png" alt="Hover Car" class="car-image">
+                            </div>
+                            <p>Hover Car</p>
+                            <p class="item-desc">Coleta moedas automaticamente</p>
+                            <button class="buy-button" data-price="10000">10000 💰</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="inventory-content">
+                <div class="inventory">
+                    <h3>Seus Itens</h3>
+                    <div id="playerInventory" class="inventory-items">
+                        <!-- Items serão adicionados dinamicamente -->
+                    </div>
+                </div>
+            </div>
+
+
+            <button id="startButton">Iniciar Jogo</button>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <h2>Game Over!</h2>
+            <p>Pontuação Final: <span id="finalScore">0</span></p>
+            <p>Moedas Coletadas: <span id="finalCoins">0</span> 💰</p>
+            <p>Total de Moedas: <span id="totalCoinsCollected">0</span> 💰</p>
+            <p>Maior Combo: <span id="maxCombo">0</span>x</p>
+            <button id="restartButton">Jogar Novamente</button>
+            <button id="menuButton">Menu Principal</button>
+        </div>
+
+        <!-- <div class="ability-indicator" id="abilityIndicator">
+            <div class="ability-key">SPACE</div>
+            <div class="ability-cooldown"></div>
+        </div> -->
+    </div>
+
+    <audio id="backgroundMusic" src="sounds/background.wav" loop></audio>
+    <audio id="collisionSound" src="sounds/collision.flac"></audio>
+    <audio id="powerUpSound" src="sounds/powerup.mp3"></audio>
+    <audio id="pointSound" src="sounds/point.mp3"></audio>
+    <audio id="gameOverSound" src="sounds/gameover.wav"></audio>
+    <audio id="levelUpSound" src="sounds/levelup.mp3"></audio>
+    <audio id="coinSound" src="sounds/coin.wav"></audio>
+    <audio id="comboSound" src="sounds/combo.wav"></audio>
+    <audio id="abilitySound" src="sounds/ability.wav"></audio>
+    <audio id="buySound" src="sounds/buy.wav"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
